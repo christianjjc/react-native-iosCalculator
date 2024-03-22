@@ -8,6 +8,7 @@ export const CalculatorScreen = () => {
   const {
     number,
     previusNumber,
+    formula,
     buildNumber,
     resetNumber,
     deleteLast,
@@ -23,11 +24,15 @@ export const CalculatorScreen = () => {
     <View style={styles.calculatorContainer}>
       <View style={{paddingHorizontal: 30, paddingVertical: 20}}>
         <Text adjustsFontSizeToFit numberOfLines={1} style={styles.mainResult}>
-          {number}
+          {formula}
         </Text>
-        <Text adjustsFontSizeToFit numberOfLines={1} style={styles.subResult}>
-          {previusNumber === '0' ? '' : previusNumber}
-        </Text>
+        {formula === previusNumber ? (
+          <Text style={styles.subResult}></Text>
+        ) : (
+          <Text adjustsFontSizeToFit numberOfLines={1} style={styles.subResult}>
+            {previusNumber}
+          </Text>
+        )}
       </View>
       <View style={styles.row}>
         <CalculatorButton
