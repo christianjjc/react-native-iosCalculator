@@ -64,12 +64,10 @@ export const useCalculator = () => {
     setLastNumber();
     lastOperation.current = Operator.divide;
   };
-
   const resetNumber = () => {
     setNumber('0');
     setPreviusNumber('0');
   };
-
   const deleteLast = () => {
     if (number.length === 2 && number.includes('-')) {
       return setNumber('0');
@@ -80,12 +78,33 @@ export const useCalculator = () => {
       return setNumber(number.slice(0, -1));
     }
   };
-
   const toggleSign = () => {
     if (number.includes('-')) {
       return setNumber(number.replace('-', ''));
     }
     setNumber('-' + number);
+  };
+
+  const calculateResult = () => {
+    const num1 = Number(number);
+    const num2 = Number(previusNumber);
+    switch (lastOperation.current) {
+      case Operator.add:
+        setNumber(`${num1 + num2}`);
+        break;
+      case Operator.substract:
+        setNumber(`${num2 - num1}`);
+        break;
+      case Operator.multiply:
+        setNumber(`${num1 * num2}`);
+        break;
+      case Operator.divide:
+        setNumber(`${num2 / num1}`);
+        break;
+      default:
+        throw new Error('Operación no permitida');
+    }
+    setPreviusNumber('0');
   };
 
   return {
@@ -101,5 +120,6 @@ export const useCalculator = () => {
     substractOperation,
     multiplyOperation,
     divideOperation,
+    calculateResult,
   };
 };
